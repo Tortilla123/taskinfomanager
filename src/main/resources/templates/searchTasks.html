@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Tasks</title>
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+            width: 100%;
+            border: 0px solid #dddddd;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 5%;
+            display: inline-block;
+        }
+
+        textarea, select, input[type = "datetime-local"], input[type = "text"]{
+            width: 100%;
+            margin-bottom: 5%;
+            display: inline-block;
+            border: 0px solid #dddddd;
+            border-bottom: 1px solid #ddd;
+        }
+
+        label{
+            margin: unset;
+        }
+        form{
+            width:30%;
+            border: 1px solid #ddd;
+            padding: 40px 40px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Search a task...</h2>
+
+    <form action = "#" th:action = "@{/searchTasks}" th:object="${tasks}" method = "post" >
+
+        <label>Incident Id:  </label>
+        <input type="text" th:field="*{incident_Id}" placeholder="Input incident id" /><br>
+        <input type="hidden" th:field = "*{incident_Id}">
+
+        <label>Group Id </label>
+        <input type="text" th:field="*{group_Id}" placeholder="Input group id" /><br>
+
+        <label>Employee Id:  </label>
+        <input type="number" th:field="*{emp_Id}" /><br>
+
+        <label>Submit Date:  </label>
+        <input type="datetime-local" th:field="*{submit_Date}" /><br>
+
+        <label>Closed Date: </label>
+        <input type="datetime-local" th:field="*{closed_Date}" /><br>
+
+        <label>Responded Date: </label>
+        <input type="datetime-local" th:field="*{responded_Date}" /><br>
+
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+
+    </form><br><br>
+
+    <h2> Tasks List</h2> <br>
+    <h5>
+        <table >
+            <thead>
+                <tr>
+                    <th> Incident Id</th>
+                    <th> App Name</th>
+                    <th> Group Id</th>
+                    <th> Incident Type</th>
+                    <th> Summary</th>
+                    <th> Employee Id</th>
+                    <th> Submit Date</th>
+                    <th> Closed Date</th>
+                    <th> Impact</th>
+                    <th> Resolution</th>
+                    <th> ResCateTier1</th>
+                    <th> Status</th>
+                    <th> Responded Date</th>
+                    <th> ResCateTier3</th>
+                    <th> Target Date</th>
+                    <th> Maintenance Id</th>
+                    <th> Maintenance Date</th>
+                </tr>
+            </thead>
+
+            <tbody th:each="tasks : ${listTasks}" >
+
+                <td th:text="${tasks.incident_Id}"></td>
+                <td th:text="${tasks.app_Name}"></td>
+                <td th:text="${tasks.group_Id}"></td>
+                <td th:text="${tasks.incident_Type}"></td>
+                <td th:text="${tasks.summary}"></td>
+                <td th:text="${tasks.emp_Id}"></td>
+                <td th:text="${tasks.submit_Date}"></td>
+                <td th:text="${tasks.closed_Date}"></td>
+                <td th:text="${tasks.impact}"></td>
+                <td th:text="${tasks.resolution}"></td>
+                <td th:text="${tasks.res_Cate_Tier1}"></td>
+                <td th:text="${tasks.status}"></td>
+                <td th:text="${tasks.responded_Date}"></td>
+                <td th:text="${tasks.res_Cate_Tier3}"></td>
+                <td th:text="${tasks.target_Date}"></td>
+                <td th:text="${tasks.maint_Id}"></td>
+                <td th:text="${tasks.maint_TS}"></td>
+
+            </tbody>
+
+        </table>
+    </h5>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Result</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+        <style type="text/css">
+            span {
+                display: inline-grid;
+                width: 200px;
+                text-align: left;
+                padding: 5px;
+            }
+            div{
+                padding-left: 2%;
+            }
+        </style>
+
+    </head>
+    <body>
+        <div>
+            <h2>Suceeded...</h2>
+            <span>App Name:  </span> <span th:text="${applications.app_Name}"></span><br/>
+            <span>Manager Name:  </span> <span th:text="${applications.manager_Name}"></span><br/>
+            <span>Area:  </span><span th:text="${applications.area}"></span><br/>
+            <span>Maintenance ID: </span><span th:text="${applications.maint_id}"></span><br/>
+            <span>Maintenance Timestamp: </span><span th:text="${applications.maint_TS}"></span><br/>
+        </div><br>
+
+        <div><a href="/addApp" class="btn btn-primary">Add Another Application</a> </div><br>
+
+    </body>
+</html>

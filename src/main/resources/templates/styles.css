@@ -1,0 +1,42 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+    width: 100%;
+    border: 0px solid #dddddd;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 5%;
+    display: inline-block;
+}
+input[type="text"]{
+    width: 100%;
+    margin-bottom: 5%;
+    border: 0px solid #dddddd;
+    border-bottom: 1px solid #ddd;
+    display: inline-block;
+}
+input[type = "datetime-local"]{
+    width: 100%;
+    margin-bottom: 5%;
+    display: inline-block;
+    border: 0px solid #dddddd;
+    border-bottom: 1px solid #ddd;
+}
+label{
+    margin: unset;
+}
+table {
+    border-collapse: collapse;
+}
+th, td{
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+form{
+    width:30%;
+    border: 1px solid #ddd;
+    padding: 25px 25px;
+}
