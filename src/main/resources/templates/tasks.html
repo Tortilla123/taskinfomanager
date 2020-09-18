@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang = "en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Tasks</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <link th:href="@{/css/tasks.css}" href="../../webapp/css/tasks.css" rel="stylesheet" type="text/css" media="all" />
+
+    </head>
+<body>
+
+    <h2>
+        Tasks
+        <a href="/" class="btn btn-primary"> Home Page</a>
+        <a th:href="@{addTask}" class="btn btn-primary">Add a task</a>
+    </h2>
+
+    <form th:action = "@{/tasks}" method="get" >
+        <label>Search by Incident Id, Group Id, or App Name</label>
+        <input type = "text" name="keyword" placeholder="Enter only Incident Id, Group Id, or App Name..."  ><br>
+
+        <label>or search by Employee Id</label><br>
+        <input type = "number" name = "keywordNum" onkeydown="return event.keyCode !== 69" placeholder="Enter only Employee Id..."><br>
+
+        <label>or search from Submit Date to Closed Date...</label><br>
+        <input type = "datetime-local" name = "keywordFrom" >
+        <input type = "datetime-local" name = "keywordTo" >
+
+        <input type="submit" value="Search" class="btn btn-secondary" />
+        <br>
+        <label>*Search is case sensitive.</label>
+    </form>
+    <br>
+    <br>
+    <table >
+        <thead>
+        <tr>
+            <th> Incident Id</th>
+            <th> App Name</th>
+            <th> Group Id</th>
+            <th> Incident Type</th>
+            <th> Summary</th>
+            <th> Employee Id</th>
+            <th> Submit Date</th>
+            <th> Closed Date</th>
+            <th> Impact</th>
+            <th> Resolution</th>
+            <th> ResCateTier1</th>
+            <th> Status</th>
+            <th> Responded Date</th>
+            <th> ResCateTier3</th>
+            <th> Target Date</th>
+            <th> Maintenance Id</th>
+            <th> Maintenance Date</th>
+            <th> Edit</th>
+            <th> Delete</th>
+        </tr>
+        </thead>
+
+        <tbody th:each="tasks : ${listTasks}" >
+
+            <td th:text="${tasks.incidentId}"></td>
+            <td th:text="${tasks.appName}"></td>
+            <td th:text="${tasks.groupId}"></td>
+            <td th:text="${tasks.incidentType}"></td>
+            <td th:text="${tasks.summary}"></td>
+            <td th:text="${tasks.empId}"></td>
+            <td th:text="${tasks.submitDate}"></td>
+            <td th:text="${tasks.closedDate}"></td>
+            <td th:text="${tasks.impact}"></td>
+            <td th:text="${tasks.resolution}"></td>
+            <td th:text="${tasks.resCateTier1}"></td>
+            <td th:text="${tasks.status}"></td>
+            <td th:text="${tasks.respondedDate}"></td>
+            <td th:text="${tasks.resCateTier3}"></td>
+            <td th:text="${tasks.targetDate}"></td>
+            <td th:text="${tasks.maintId}"></td>
+            <td th:text="${tasks.maintTS}"></td>
+
+            <td align = "center" valign="center">
+                <a th:href = "@{/editTask/{incidentId} (incidentId = ${tasks.incidentId})}" class="btn btn-primary">
+                    Edit
+                </a>
+            </td>
+            <td align = "center" valign="center">
+                <a th:href = "@{/deleteTask/{incidentId} (incidentId = ${tasks.incidentId})}" onclick="alert('This will delete the entry.')" class="btn btn-primary">
+                    Delete
+                </a>
+            </td>
+        </tbody>
+
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Tasks</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <link th:href="@{/css/addTasks.css}" href="../../webapp/css/addTasks.css" rel="stylesheet" type="text/css" media="all" />
+    </head>
+
+    <body>
+
+<!-- -----------------------------------------------TASKS FORM------------------------------------------------------------------------->
+
+        <div>
+
+            <h2>Create a Task
+                <a href="/" class="btn btn-primary"> Home Page</a>
+                <a th:href="@{tasks}" class="btn btn-primary">Tasks List</a>
+            </h2>
+
+            <form action = "#" th:action = "@{/addTask}" th:object="${tasks}" method = "post" >
+
+                <label>Incident Id:  </label>
+                <input type="text" th:field="*{incidentId}" placeholder="Input incident id" required/><br>
+                <input type="hidden" th:field = "*{incidentId}">
+
+                <label>Application name:  </label>
+                <input type="text" th:field="*{appName}" placeholder="Input application name" required/><br>
+
+                <label>Group Id </label>
+                <input type="text" th:field="*{groupId}" placeholder="Input group id" required /><br>
+
+                <label>Incident type:  </label>
+                <select th:field="*{incidentType}" >
+                    <option th:each="incidentType : ${listIncidentType}" th:value = "${incidentType}" th:text="${incidentType}"> </option>
+                </select><br>
+
+                <label>Summary: </label>
+                <textarea th:field="*{summary}" rows = "3" placeholder="Provide description..."></textarea>
+
+                <label>Employee Id:  </label>
+                <input type="number" th:field="*{empId}" onkeydown="return event.keyCode !== 69" required/><br>
+
+                <label>Submit Date:  </label>
+                <input type="datetime-local" th:field="*{submitDate}"  required/><br>
+
+                <label>Closed Date: </label>
+                <input type="datetime-local" th:field="*{closedDate}"  required/><br>
+
+                <label>Impact: </label>
+                <select th:field="*{impact}" >
+                    <option th:each="impactType : ${listImpact}" th:value = "${impactType}" th:text="${impactType}"> </option>
+                </select><br>
+
+                <label>Resolution: </label>
+                <textarea th:field="*{resolution}" rows = "2" placeholder="Provide description..."></textarea>
+
+                <label>Res Cate Tier 1: </label>
+                <select th:field="*{resCateTier1}" >
+                    <option th:each="resCateTier1 : ${listResCateTier1}" th:value = "${resCateTier1}" th:text="${resCateTier1}"> </option>
+                </select><br>
+
+                <label>Status: </label>
+                <input type="text" th:field="*{status}"  placeholder="Open or Closed?"required/><br>
+
+                <label>Responded Date: </label>
+                <input type="datetime-local" th:field="*{respondedDate}"  required/><br>
+
+                <label>Res Cate Tier 3: </label>
+                <select th:field="*{resCateTier3}" >
+                    <option th:each="resCateTier3 : ${listResCateTier3}" th:value = "${resCateTier3}" th:text="${resCateTier3}"> </option>
+                </select><br>
+
+                <label>Target Date: </label>
+                <input type="datetime-local" th:field="*{targetDate}"  required/><br>
+
+                <label>Maintenance Id: </label>
+                <input type="number" th:field="*{maintId}"  required/><br>
+
+                <label>Maintenance Date: </label>
+                <input type="datetime-local" th:field="*{maintTS}"  required/><br>
+
+                <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+
+            </form><br><br>
+
+        </div>
+    </body>
+</html>

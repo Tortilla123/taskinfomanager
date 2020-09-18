@@ -10,28 +10,28 @@ import javax.persistence.*;
 public class Tasks {
     @Id
     @Column(name = "INCIDENT_ID")
-    private String incident_Id;
+    private String incidentId;
 
     @Column(name = "APP_NAME")
-    private String app_Name;
+    private String appName;
 
     @Column(name = "GROUP_ID")
-    private String group_Id;
+    private String groupId;
 
     @Column(name = "INCIDENT_TYPE")
-    private String incident_Type;
+    private String incidentType;
 
     @Column(name = "SUMMARY")
     private String summary;
 
     @Column(name = "EMP_ID")
-    private int emp_Id;
+    private int empId;
 
     @Column(name = "SUBMIT_DATE")
-    private String submit_Date;
+    private String submitDate;
 
     @Column(name = "CLOSED_DATE")
-    private String closed_Date;
+    private String closedDate;
 
     @Column(name = "IMPACT")
     private String impact;
@@ -40,105 +40,89 @@ public class Tasks {
     private String resolution;
 
     @Column(name = "RES_CATE_TIER_1")
-    private String res_Cate_Tier1;
+    private String resCateTier1;
 
     @Column(name = "STATUS")
     private String status;
 
     @Column(name = "RESPONDED_DATE")
-    private String responded_Date;
+    private String respondedDate;
 
     @Column(name = "RES_CATE_TIER_3")
-    private String res_Cate_Tier3;
+    private String resCateTier3;
 
     @Column(name = "TARGET_DATE")
-    private String target_Date;
-
+    private String targetDate;
 
     @Column(name = "MAINT_ID")
-    private int maint_Id;
+    private int maintId;
 
     @Column(name = "MAINT_TS")
-    private String maint_TS;
+    private String maintTS;
 
-    public String getIncident_Id() {
-        return incident_Id;
+    public String getIncidentId() {
+        return incidentId;
     }
 
-    public void setIncident_Id(String incident_Id) {
-        String str_Incident_Id = incident_Id.replaceAll(",$", "");
-        this.incident_Id = str_Incident_Id;
+    public void setIncidentId(String incidentId) {
+        String str_Incident_Id = incidentId.replaceAll(",$", "");
+        this.incidentId = str_Incident_Id;
     }
 
-    public String getApp_Name() {
-        return app_Name;
+    public String getAppName() {
+        return appName;
     }
 
-    public void setApp_Name(String app_Name) { this.app_Name = app_Name; }
-
-    public String getGroup_Id() {
-        return group_Id;
+    public void setAppName(String appName) {
+        this.appName = appName;
     }
 
-    public void setGroup_Id(String group_Id) {
-        this.group_Id = group_Id;
+    public String getGroupId() {
+        return groupId;
     }
 
-    public int getMaint_Id() {
-        return maint_Id;
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
     }
 
-    public void setMaint_Id(int maint_Id) {
-        this.maint_Id = maint_Id;
+    public String getIncidentType() {
+        return incidentType;
     }
 
-    public String getMaint_TS() {
-        return maint_TS;
-    }
-
-    public void setMaint_TS(String maint_TS) {
-        this.maint_TS = maint_TS;
-    }
-
-
-    public String getIncident_Type() {
-        return incident_Type;
-    }
-
-    public void setIncident_Type(String incident_Type) {
-        this.incident_Type = incident_Type;
+    public void setIncidentType(String incidentType) {
+        this.incidentType = incidentType;
     }
 
     public String getSummary() {
         return summary;
     }
 
-    public int getEmp_Id() {
-        return emp_Id;
-    }
-
-    public void setEmp_Id(int emp_Id) {
-        this.emp_Id = emp_Id;
-    }
-
     public void setSummary(String summary) {
         this.summary = summary;
     }
 
-    public String getSubmit_Date() {
-        return submit_Date;
+    public int getEmpId() {
+        return empId;
     }
 
-    public void setSubmit_Date(String submit_Date) {
-        this.submit_Date = submit_Date;
+    public void setEmpId(int empId) {
+        this.empId = empId;
     }
 
-    public String getClosed_Date() {
-        return closed_Date;
+    public String getSubmitDate() {
+        return submitDate;
     }
 
-    public void setClosed_Date(String closed_Date) {
-        this.closed_Date = closed_Date;
+    public void setSubmitDate(String submitDate) {
+        this.submitDate = submitDate;
+    }
+
+    public String getClosedDate() {
+        return closedDate;
+    }
+
+    public void setClosedDate(String closedDate) {
+        this.closedDate = closedDate;
     }
 
     public String getImpact() {
@@ -157,12 +141,12 @@ public class Tasks {
         this.resolution = resolution;
     }
 
-    public String getRes_Cate_Tier1() {
-        return res_Cate_Tier1;
+    public String getResCateTier1() {
+        return resCateTier1;
     }
 
-    public void setRes_Cate_Tier1(String res_Cate_Tier1) {
-        this.res_Cate_Tier1 = res_Cate_Tier1;
+    public void setResCateTier1(String resCateTier1) {
+        this.resCateTier1 = resCateTier1;
     }
 
     public String getStatus() {
@@ -173,27 +157,44 @@ public class Tasks {
         this.status = status;
     }
 
-    public String getResponded_Date() {
-        return responded_Date;
+    public String getRespondedDate() {
+        return respondedDate;
     }
 
-    public void setResponded_Date(String responded_Date) {
-        this.responded_Date = responded_Date;
+    public void setRespondedDate(String respondedDate) {
+        this.respondedDate = respondedDate;
     }
 
-    public String getRes_Cate_Tier3() {
-        return res_Cate_Tier3;
+    public String getResCateTier3() {
+        return resCateTier3;
     }
 
-    public void setRes_Cate_Tier3(String res_Cate_Tier3) {
-        this.res_Cate_Tier3 = res_Cate_Tier3;
+    public void setResCateTier3(String resCateTier3) {
+        this.resCateTier3 = resCateTier3;
     }
 
-    public String getTarget_Date() {
-        return target_Date;
+    public String getTargetDate() {
+        return targetDate;
     }
 
-    public void setTarget_Date(String target_Date) {
-        this.target_Date = target_Date;
+    public void setTargetDate(String targetDate) {
+        this.targetDate = targetDate;
     }
+
+    public int getMaintId() {
+        return maintId;
+    }
+
+    public void setMaintId(int maintId) {
+        this.maintId = maintId;
+    }
+
+    public String getMaintTS() {
+        return maintTS;
+    }
+
+    public void setMaintTS(String maintTS) {
+        this.maintTS = maintTS;
+    }
+
 }

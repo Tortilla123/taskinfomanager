@@ -18,8 +18,9 @@ public class TasksService implements ITasksService {
     private TasksRepository tasksRepository;
 
     @Override
-    public Tasks createTask(Tasks task, String incident_Id) {
-        String str_Incident_Id = incident_Id.replaceAll(",$", "");
+    public Tasks createTask(Tasks task, String incidentId) {
+        String str_Incident_Id = incidentId.replaceAll(",$", "");
+        System.out.println(incidentId);
         if (tasksRepository.existsById(str_Incident_Id)){
             throw new ResourceNotFound("Resource exits.");
         }else {
@@ -51,33 +52,28 @@ public class TasksService implements ITasksService {
         if(tasksDB.isPresent()){
         Tasks updateTask = tasksDB.get();
 
-        updateTask.setApp_Name(tasks.getApp_Name());
-        updateTask.setGroup_Id(tasks.getGroup_Id());
-        updateTask.setIncident_Type(tasks.getIncident_Type());
+        updateTask.setAppName(tasks.getAppName());
+        updateTask.setGroupId(tasks.getGroupId());
+        updateTask.setIncidentType(tasks.getIncidentType());
         updateTask.setSummary(tasks.getSummary());
-        updateTask.setEmp_Id(tasks.getEmp_Id());
-        updateTask.setSubmit_Date(tasks.getSubmit_Date());
-        updateTask.setClosed_Date(tasks.getClosed_Date());
+        updateTask.setEmpId(tasks.getEmpId());
+        updateTask.setSubmitDate(tasks.getSubmitDate());
+        updateTask.setClosedDate(tasks.getClosedDate());
         updateTask.setImpact(tasks.getImpact());
         updateTask.setResolution(tasks.getResolution());
-        updateTask.setRes_Cate_Tier1(tasks.getRes_Cate_Tier1());
+        updateTask.setResCateTier1(tasks.getResCateTier1());
         updateTask.setStatus(tasks.getStatus());
-        updateTask.setResponded_Date(tasks.getResponded_Date());
-        updateTask.setRes_Cate_Tier3(tasks.getRes_Cate_Tier3());
-        updateTask.setTarget_Date(tasks.getTarget_Date());
-        updateTask.setMaint_Id(tasks.getMaint_Id());
-        updateTask.setMaint_TS(tasks.getMaint_TS());
+        updateTask.setRespondedDate(tasks.getRespondedDate());
+        updateTask.setResCateTier3(tasks.getResCateTier3());
+        updateTask.setTargetDate(tasks.getTargetDate());
+        updateTask.setMaintId(tasks.getMaintId());
+        updateTask.setMaintTS(tasks.getMaintTS());
 
         return tasksRepository.save(updateTask);
 
         } else{
             throw new ResourceNotFound("Resource not found with Incident ID: "+ incident_Id);
         }
-    }
-
-    @Override
-    public List<Tasks> findTasks(String incident_Id, int emp_Id, String group_Id, String app_Name) {
-        return null;
     }
 
     @Override
@@ -88,5 +84,10 @@ public class TasksService implements ITasksService {
         }else{
             throw new ResourceNotFound("Task not found with Incident ID: "+ incident_Id);
         }
+    }
+
+    @Override
+    public List<Tasks> fetchTasksByKeyword(String keyword, Integer keywordNum) {
+        return tasksRepository.findTasksByKeyword(keyword, keywordNum);
     }
 }

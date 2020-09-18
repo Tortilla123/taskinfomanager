@@ -4,45 +4,37 @@
         <meta charset="UTF-8">
         <title>Result</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-
-        <style type="text/css">
-            span {
-                display: inline-grid;
-                width: 200px;
-                text-align: left;
-                padding: 5px;
-            }
-            div{
-                padding-left: 2%;
-            }
-        </style>
+        <link th:href="@{/css/resultTasks.css}" href="../../webapp/css/resultTasks.css" rel="stylesheet" type="text/css" media="all" />
 
     </head>
 
     <body>
         <div>
             <h2>Succeeded...</h2>
-            <span>Incident ID:  </span> <span th:text="${tasks.incident_Id}"></span><br/>
-            <span>Application Name:  </span> <span th:text="${tasks.app_Name}"></span><br/>
-            <span>Group ID:  </span><span th:text="${tasks.group_Id}"></span><br/>
-            <span>Incident Type: </span><span th:text="${tasks.incident_Type}"></span><br/>
+            <span>Incident ID:  </span> <span th:text="${tasks.incidentId}"></span><br/>
+            <span>Application Name:  </span> <span th:text="${tasks.appName}"></span><br/>
+            <span>Group ID:  </span><span th:text="${tasks.groupId}"></span><br/>
+            <span>Incident Type: </span><span th:text="${tasks.incidentType}"></span><br/>
             <span>Summary: </span><span th:text="${tasks.summary}"></span><br/>
-            <span>Employee ID: </span><span th:text="${tasks.emp_Id}"></span><br/>
-            <span>Submit Date: </span><span th:text="${tasks.submit_Date}"></span><br/>
-            <span>Closed Date: </span><span th:text="${tasks.closed_Date}"></span><br/>
+            <span>Employee ID: </span><span th:text="${tasks.empId}"></span><br/>
+            <span>Submit Date: </span><span th:text="${tasks.submitDate}"></span><br/>
+            <span>Closed Date: </span><span th:text="${tasks.closedDate}"></span><br/>
             <span>Impact:  </span><span th:text="${tasks.impact}"></span><br/>
             <span>Resolution: </span><span th:text="${tasks.resolution}"></span><br/>
-            <span>ResCateTier1: </span><span th:text="${tasks.res_Cate_Tier1}"></span><br/>
+            <span>ResCateTier1: </span><span th:text="${tasks.resCateTier1}"></span><br/>
             <span>Status: </span><span th:text="${tasks.status}"></span><br/>
-            <span>Responded Date: </span><span th:text="${tasks.responded_Date}"></span><br/>
-            <span>ResCateTier3: </span><span th:text="${tasks.res_Cate_Tier3}"></span><br/>
-            <span>Target Date: </span><span th:text="${tasks.target_Date}"></span><br/>
-            <span>Maintenance ID: </span><span th:text="${tasks.maint_Id}"></span><br/>
-            <span>Maintenance Date: </span><span th:text="${tasks.maint_TS}"></span><br/>
+            <span>Responded Date: </span><span th:text="${tasks.respondedDate}"></span><br/>
+            <span>ResCateTier3: </span><span th:text="${tasks.resCateTier3}"></span><br/>
+            <span>Target Date: </span><span th:text="${tasks.targetDate}"></span><br/>
+            <span>Maintenance ID: </span><span th:text="${tasks.maintId}"></span><br/>
+            <span>Maintenance Date: </span><span th:text="${tasks.maintTS}"></span><br/>
 
         </div><br>
 
-        <div><a href="/addTask" class="btn btn-primary">Add Another Task</a> </div><br>
+        <div>
+            <a th:href="@{addTask}" class="btn btn-primary">Add Another Task</a>
+            <a th:href="@{tasks}" class="btn btn-primary">Tasks List</a>
+        </div><br>
 
     </body>
 </html>

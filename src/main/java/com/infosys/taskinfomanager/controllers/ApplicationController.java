@@ -7,12 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class ApplicationController {
@@ -26,13 +24,6 @@ public class ApplicationController {
         return ResponseEntity.ok().body(applicationsService.getAllApplications());
 
     }
-    /*
-    @PostMapping("/apps")
-    public ResponseEntity<Applications> createApplication(@RequestBody Applications application){
-        return ResponseEntity.ok().body(applicationsService.createApplications(application));
-    }
-    */
-
 
     @GetMapping("/addApp")
     public String addApplicationForm(Model model) {
@@ -40,7 +31,7 @@ public class ApplicationController {
         model.addAttribute( "applications", applications );
         model.addAttribute("listApps", applicationsService.getAllApplications());
 
-        return "manageApplication";
+        return "addApplications";
     }
 
     @PostMapping("/addApp")
@@ -66,7 +57,6 @@ public class ApplicationController {
 
             return "editApplication";
         }
-
 
     }
 

@@ -4,7 +4,6 @@ import com.infosys.taskinfomanager.exceptions.ResourceNotFound;
 import com.infosys.taskinfomanager.models.Tasks;
 import com.infosys.taskinfomanager.services.ITasksService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
@@ -20,21 +19,20 @@ public class TasksController {
     ITasksService tasksService;
 
     @GetMapping("/tasks")
-    public ResponseEntity<List<Tasks>> findAll() {
-
-        return ResponseEntity.ok().body(tasksService.getAllTasks());
-
+    public String getTasks(Model model, String keyword, Integer keywordNum){
+        if(keyword == null) {
+            model.addAttribute("listTasks", tasksService.getAllTasks());
+        }else{
+            model.addAttribute("listTasks", tasksService.fetchTasksByKeyword(keyword, keywordNum));
+        }
+        return "tasks";
     }
-    @PostMapping("/tasks")
-    public ResponseEntity<Tasks> createTask(@RequestBody Tasks task, String incident_Id){
-        return ResponseEntity.ok().body(this.tasksService.createTask(task, incident_Id));
-    }
 
+    //Add a task
     @GetMapping("/addTask")
     public String addTaskForm(Model model) {
         Tasks tasks = new Tasks();
         model.addAttribute("tasks", tasks);
-        model.addAttribute("listTasks", tasksService.getAllTasks());
 
         List<String> incidentType = Arrays.asList("L2", "L3", "Maint", "SR", "Enhancement-Minor", "Enhancement-Major", "Project Management", "NA");
         model.addAttribute("listIncidentType", incidentType);
@@ -48,35 +46,25 @@ public class TasksController {
         List<String> resCateTier3 = Arrays.asList("Testing Support", "Data Fix", "Code Change", "Analysis");
         model.addAttribute("listResCateTier3", resCateTier3);
 
-        return "manageTasks";
+        return "addTasks";
     }
     @PostMapping("/addTask")
-    public String submitTaskForm(@Validated @ModelAttribute("tasks") Tasks tasks, String incident_Id, Model model) {
+    public String submitTaskForm(@Validated @ModelAttribute("tasks") Tasks tasks, String incidentId, Model model) {
         model.addAttribute("tasks", tasks);
 
-        tasksService.createTask(tasks, incident_Id);
+        tasksService.createTask(tasks, incidentId);
 
         return "resultTask";
     }
 
-    /* TODO SEARCH FUNCTION
-
-    @GetMapping("/searchTasks")
-    public String searchTaskForm(Model model){
-        Tasks tasks =  new Tasks();
-        model.addAttribute("tasks", tasks);
-        model.addAttribute("listTasks", tasksService.getAllTasks());
-
-        return "searchTasks";
-    }
-    */
-    @GetMapping("/editTask/{incident_Id}")
-    public String editForm(@PathVariable("incident_Id") String incident_Id,  Model model) throws ResourceNotFound {
-        if(tasksService.findTaskById(incident_Id).getIncident_Id().isEmpty()){
+    //Edit tasks
+    @GetMapping("/editTask/{incidentId}")
+    public String editForm(@PathVariable("incidentId") String incidentId,  Model model) throws ResourceNotFound {
+        if(tasksService.findTaskById(incidentId).getIncidentId().isEmpty()){
             return "error";
         }else {
 
-            model.addAttribute("editTask", tasksService.findTaskById(incident_Id));
+            model.addAttribute("editTask", tasksService.findTaskById(incidentId));
 
             List<String> incidentType = Arrays.asList("L2", "L3", "Maint", "SR", "Enhancement-Minor", "Enhancement-Major", "Project Management", "NA");
             model.addAttribute("listIncidentType2", incidentType);
@@ -95,22 +83,21 @@ public class TasksController {
         }
     }
 
-    @PostMapping("/editTask/{incident_Id}")
-    public String submitForm(@PathVariable("incident_Id") String incident_Id, @Validated Tasks tasks, Model model) {
+    @PostMapping("/editTask/{incidentId}")
+    public String submitForm(@PathVariable("incidentId") String incidentId, @Validated Tasks tasks) {
 
-        tasksService.updateTask(tasks, incident_Id);
-        model.addAttribute("editApp", tasksService.getAllTasks());
+        tasksService.updateTask(tasks, incidentId);
 
-
-        return "redirect:/addTask";
+        return "redirect:/tasks";
     }
 
-    @GetMapping("/deleteTask/{incident_Id}")
-    public String deleteTask(@Validated @PathVariable("incident_Id") String incident_Id) throws ResourceNotFound {
+    //Delete tasks
+    @GetMapping("/deleteTask/{incidentId}")
+    public String deleteTask(@Validated @PathVariable("incidentId") String incident_Id) throws ResourceNotFound {
 
         tasksService.deleteTask(incident_Id);
 
-        return "redirect:/addTask";
+        return "redirect:/tasks";
     }
 
 }
