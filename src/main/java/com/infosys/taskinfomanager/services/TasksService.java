@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import javax.transaction.Transactional;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -87,7 +88,19 @@ public class TasksService implements ITasksService {
     }
 
     @Override
-    public List<Tasks> fetchTasksByKeyword(String keyword, Integer keywordNum) {
-        return tasksRepository.findTasksByKeyword(keyword, keywordNum);
+    public List<Tasks> fetchTasksByKeyword(String keyword, Integer keywordNum, String keywordFrom, String keywordTo) {
+
+        if(keyword != null && keyword != "" || keywordNum != null){
+            return tasksRepository.findTasksByKeyword(keyword, keywordNum);
+        }else if (keywordFrom != null && keywordTo != null){
+            if (keywordFrom == "" || keywordTo == ""){
+                throw new ResourceNotFound("String index out of range.");
+            }else{
+                return tasksRepository.findTasksByDateRange(keywordFrom, keywordTo);
+            }
+        }
+        else{
+            throw new ResourceNotFound("Task not found with search criteria.");
+        }
     }
 }

@@ -16,19 +16,42 @@
     </h2>
 
     <form th:action = "@{/tasks}" method="get" >
-        <label>Search by Incident Id, Group Id, or App Name</label>
-        <input type = "text" name="keyword" placeholder="Enter only Incident Id, Group Id, or App Name..."  ><br>
+        <div class = "row">
+            <ul class = "column" >
+                <label>Search by Incident Id, Group Id, or App Name
+                    <input type = "text" name="keyword" placeholder="Enter Incident Id, Group Id, or App Name only..."  >
+                </label>
+            </ul>
 
-        <label>or search by Employee Id</label><br>
-        <input type = "number" name = "keywordNum" onkeydown="return event.keyCode !== 69" placeholder="Enter only Employee Id..."><br>
+            <ul class = "column">
+                <label>Search by Employee Id
+                    <input type = "number" name = "keywordNum" onkeydown="return event.keyCode !== 69" placeholder="Enter Employee Id only...">
+                </label>
+            </ul>
+        </div>
+        <div class = "row">
+            <ul class = "column">
+                <label>Search from Submit Date to
+                    <input type = "text" name = "keywordFrom" placeholder="Enter as yyyy-mm-dd hh:mm:ss" >
+                </label>
+            </ul>
 
-        <label>or search from Submit Date to Closed Date...</label><br>
-        <input type = "datetime-local" name = "keywordFrom" >
-        <input type = "datetime-local" name = "keywordTo" >
+            <ul class = "column">
+                <label>Closed Date
+                    <input type = "text" name = "keywordTo"  placeholder="Enter as yyyy-mm-dd hh:mm:ss">
+                </label>
+            </ul>
+        </div>
 
-        <input type="submit" value="Search" class="btn btn-secondary" />
-        <br>
-        <label>*Search is case sensitive.</label>
+        <ul class = "row" style="width: 95%; display: inline-flex; justify-content: space-between">
+            <p>*Search is case sensitive.</p>
+            <ul>
+                <a th:href="@{tasks}" class="btn btn-secondary">Show All</a>
+                <input type="submit" value="Search" class="btn btn-secondary" />
+            </ul>
+
+        </ul>
+
     </form>
     <br>
     <br>

@@ -3,6 +3,7 @@ package com.infosys.taskinfomanager.models;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Qualifier("tasks")
 @Entity

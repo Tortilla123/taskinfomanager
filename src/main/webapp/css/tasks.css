@@ -4,8 +4,9 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 input[type = "text"], input[type = "number"]{
-    width: 100%;
+    width: 90%;
 }
+
 body{
     margin-left: 2%;
     margin-top: 2%;
@@ -24,11 +25,22 @@ td{
     padding: 10px;
 }
 form{
-    width:645px;
+    width: 750px;
     border: 1px solid #ddd;
-    padding: 30px 30px;
-
+    padding-left: 10px;
+    padding-top: 10px;
 }
-label{
-    padding-top: 3px;
+
+.row{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    width: 100%;
+}
+.column{
+    display: flex;
+    flex-direction: column;
+    flex-basis: 50%;
+    flex: 1;
 }

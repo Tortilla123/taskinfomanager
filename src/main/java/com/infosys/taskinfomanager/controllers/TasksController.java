@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,11 +20,12 @@ public class TasksController {
     ITasksService tasksService;
 
     @GetMapping("/tasks")
-    public String getTasks(Model model, String keyword, Integer keywordNum){
-        if(keyword == null) {
+    public String getTasks(Model model, String keyword, Integer keywordNum, String keywordFrom, String keywordTo){
+
+        if(keyword == null && keywordNum == null && (keywordFrom == null && keywordTo == null)) {
             model.addAttribute("listTasks", tasksService.getAllTasks());
         }else{
-            model.addAttribute("listTasks", tasksService.fetchTasksByKeyword(keyword, keywordNum));
+            model.addAttribute("listTasks", tasksService.fetchTasksByKeyword(keyword, keywordNum, keywordFrom, keywordTo));
         }
         return "tasks";
     }
