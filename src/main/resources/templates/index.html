@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
         <title>BSNF Task Information Management</title>
@@ -19,12 +19,15 @@
                 This is a simple Task Information Manager using JDK8, Spring Boot 2.3.3, Spring JPA, REStful Api, Hibernate(H2), Thymeleaf, and IntelliJ  <br><br>
             </h3>
              <h5>
-                 Please navigate to /employee, /apps, /tasks, /groups to view a list of all data by table in Json <br>
+                 Please navigate to /employee, /apps, /groups to view a list of all data by table in Json <br>
              </h5>
         </div>
         <div>
-            <a href="/addApp" class="btn btn-primary">Add an application</a>
-            <a href="/addTask" class="btn btn-primary">Add a task</a>
+            <a th:href="@{addApp}" class="btn btn-primary">Add an application</a>
+
+            <a th:href="@{tasks}" class="btn btn-primary">Tasks List</a>
+            <a th:href="@{addTask}" class="btn btn-primary">Add a task</a>
+
         </div>
     </body>
 </html>

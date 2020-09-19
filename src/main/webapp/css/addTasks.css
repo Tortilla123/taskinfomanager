@@ -11,32 +11,37 @@ input[type="number"] {
     margin-bottom: 5%;
     display: inline-block;
 }
-input[type="text"]{
-    width: 100%;
-    margin-bottom: 5%;
-    border: 0px solid #dddddd;
-    border-bottom: 1px solid #ddd;
-    display: inline-block;
-}
-input[type = "datetime-local"]{
+
+textarea, select, input[type = "datetime-local"], input[type = "text"]{
     width: 100%;
     margin-bottom: 5%;
     display: inline-block;
     border: 0px solid #dddddd;
     border-bottom: 1px solid #ddd;
 }
+
 label{
     margin: unset;
 }
 table {
     border-collapse: collapse;
+    width: 60%;
 }
-th, td{
+th{
+    font-weight: bolder;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+td{
     border-bottom: 1px solid #ddd;
     padding: 10px;
 }
 form{
     width:30%;
     border: 1px solid #ddd;
-    padding: 25px 25px;
+    padding: 40px 40px;
+}
+body{
+    padding-left: 2%;
+    padding-top: 2%;
 }
