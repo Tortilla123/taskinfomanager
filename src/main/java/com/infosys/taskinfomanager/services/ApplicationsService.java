@@ -33,8 +33,7 @@ public class ApplicationsService implements IApplicationsService{
 
     @Override
     public List<Applications> getAllApplications() {
-
-        return (List<Applications>) applicationRepository.findAll();
+        return applicationRepository.findAll();
     }
 
 
@@ -46,7 +45,7 @@ public class ApplicationsService implements IApplicationsService{
 
             applications1.setArea(applications.getArea());
             applications1.setManager_Name(applications.getManager_Name());
-            applications1.setMaint_id(applications.getMaint_id());
+            applications1.setMaint_Id(applications.getMaint_Id());
             applications1.setMaint_TS(applications.getMaint_TS());
             return applicationRepository.save(applications1);
 
@@ -57,7 +56,7 @@ public class ApplicationsService implements IApplicationsService{
         Optional<Applications> applicationsDB = this.applicationRepository.findById(app_Name);
 
         if(applicationsDB.isPresent()){
-            return applicationRepository.findById(app_Name).get();
+            return applicationsDB.get();
         }else{
             throw new ResourceNotFound("Application not found.");
         }

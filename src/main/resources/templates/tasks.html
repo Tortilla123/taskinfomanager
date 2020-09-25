@@ -80,36 +80,41 @@
         </tr>
         </thead>
 
-        <tbody th:each="tasks : ${listTasks}" >
+        <tbody >
+            <tr th:if="${listTasks.isEmpty()}">
+                <td colspan="19"> No Tasks to display. Please add a task. </td>
+            </tr>
 
-            <td th:text="${tasks.incidentId}"></td>
-            <td th:text="${tasks.appName}"></td>
-            <td th:text="${tasks.groupId}"></td>
-            <td th:text="${tasks.incidentType}"></td>
-            <td th:text="${tasks.summary}"></td>
-            <td th:text="${tasks.empId}"></td>
-            <td th:text="${tasks.submitDate}"></td>
-            <td th:text="${tasks.closedDate}"></td>
-            <td th:text="${tasks.impact}"></td>
-            <td th:text="${tasks.resolution}"></td>
-            <td th:text="${tasks.resCateTier1}"></td>
-            <td th:text="${tasks.status}"></td>
-            <td th:text="${tasks.respondedDate}"></td>
-            <td th:text="${tasks.resCateTier3}"></td>
-            <td th:text="${tasks.targetDate}"></td>
-            <td th:text="${tasks.maintId}"></td>
-            <td th:text="${tasks.maintTS}"></td>
+            <tr th:each="tasks : ${listTasks}">
+                <td th:text="${tasks.incidentId}"></td>
+                <td th:text="${tasks.appName.app_Name}"></td>
+                <td th:text="${tasks.groupId.group_Name}"></td>
+                <td th:text="${tasks.incidentType}"></td>
+                <td th:text="${tasks.summary}"></td>
+                <td th:text="${tasks.empId}"></td>
+                <td th:text="${tasks.submitDate}"></td>
+                <td th:text="${tasks.closedDate}"></td>
+                <td th:text="${tasks.impact}"></td>
+                <td th:text="${tasks.resolution}"></td>
+                <td th:text="${tasks.resCateTier1}"></td>
+                <td th:text="${tasks.status}"></td>
+                <td th:text="${tasks.respondedDate}"></td>
+                <td th:text="${tasks.resCateTier3}"></td>
+                <td th:text="${tasks.targetDate}"></td>
+                <td th:text="${tasks.maintId}"></td>
+                <td th:text="${tasks.maintTS}"></td>
 
-            <td align = "center" valign="center">
-                <a th:href = "@{/editTask/{incidentId} (incidentId = ${tasks.incidentId})}" class="btn btn-primary">
-                    Edit
-                </a>
-            </td>
-            <td align = "center" valign="center">
-                <a th:href = "@{/deleteTask/{incidentId} (incidentId = ${tasks.incidentId})}" onclick="alert('This will delete the entry.')" class="btn btn-primary">
-                    Delete
-                </a>
-            </td>
+                <td align = "center" valign="center">
+                    <a th:href = "@{/editTask/{incidentId} (incidentId = ${tasks.incidentId})}" class="btn btn-primary">
+                        Edit
+                    </a>
+                </td>
+                <td align = "center" valign="center">
+                    <a th:href = "@{/deleteTask/{incidentId} (incidentId = ${tasks.incidentId})}" onclick="alert('This will delete the entry.')" class="btn btn-primary">
+                        Delete
+                    </a>
+                </td>
+            </tr>
         </tbody>
 
     </table>

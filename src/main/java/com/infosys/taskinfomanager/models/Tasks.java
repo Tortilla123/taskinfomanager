@@ -3,7 +3,9 @@ package com.infosys.taskinfomanager.models;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Qualifier("tasks")
 @Entity
@@ -11,54 +13,76 @@ import java.sql.Timestamp;
 public class Tasks {
     @Id
     @Column(name = "INCIDENT_ID")
+    @NotEmpty(message = "Incident Id required!")
     private String incidentId;
 
-    @Column(name = "APP_NAME")
-    private String appName;
+    @ManyToOne
+    @JoinColumn(name = "APP_NAME", referencedColumnName = "APP_NAME")
+    private Applications appName;
 
-    @Column(name = "GROUP_ID")
-    private String groupId;
+    @ManyToOne
+    @JoinColumn(name = "GROUP_ID", referencedColumnName = "GROUP_ID")
+    private Groups groupId;
 
     @Column(name = "INCIDENT_TYPE")
+    @NotEmpty(message = "Incident type required!")
     private String incidentType;
 
     @Column(name = "SUMMARY")
+    @NotEmpty(message = "Summary required!")
+    @Size(min=3, max= 70)
     private String summary;
 
     @Column(name = "EMP_ID")
-    private int empId;
+    @NotEmpty(message = "Employee Id required!")
+    @Pattern(regexp = "[\\s]*[0-9]*[0-9]+",message="Must contain numbers only!")
+    @Size(min=1, max =10)
+    private String empId;
 
+    @NotEmpty(message = "Submit date/time required!!")
     @Column(name = "SUBMIT_DATE")
     private String submitDate;
 
     @Column(name = "CLOSED_DATE")
+    @NotEmpty(message = "Target date/time required!")
     private String closedDate;
 
     @Column(name = "IMPACT")
+    @NotEmpty(message = "Required impact!")
     private String impact;
 
     @Column(name = "RESOLUTION")
+    @NotEmpty(message = "Resolution required!")
+    @Size(min=3, max= 70)
     private String resolution;
 
     @Column(name = "RES_CATE_TIER_1")
+    @NotEmpty(message = "Resoluton Tier 1 required!")
     private String resCateTier1;
 
     @Column(name = "STATUS")
+    @NotEmpty(message = "Status required!")
+    @Size(min=3, max=10)
     private String status;
 
     @Column(name = "RESPONDED_DATE")
+    @NotEmpty(message = "Responded date/time required!")
     private String respondedDate;
 
     @Column(name = "RES_CATE_TIER_3")
+    @NotEmpty(message = "Resoluton Tier 3 required!")
     private String resCateTier3;
 
     @Column(name = "TARGET_DATE")
+    @NotEmpty(message = "Target date required!")
     private String targetDate;
 
     @Column(name = "MAINT_ID")
-    private int maintId;
+    @NotEmpty(message = "Maintenance id required!")
+    private String maintId;
 
     @Column(name = "MAINT_TS")
+    @NotEmpty(message = "Maintenance date/time required!")
     private String maintTS;
 
     public String getIncidentId() {
@@ -70,19 +94,19 @@ public class Tasks {
         this.incidentId = str_Incident_Id;
     }
 
-    public String getAppName() {
+    public Applications getAppName() {
         return appName;
     }
 
-    public void setAppName(String appName) {
+    public void setAppName(Applications appName) {
         this.appName = appName;
     }
 
-    public String getGroupId() {
+    public Groups getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(String groupId) {
+    public void setGroupId(Groups groupId) {
         this.groupId = groupId;
     }
 
@@ -102,11 +126,11 @@ public class Tasks {
         this.summary = summary;
     }
 
-    public int getEmpId() {
+    public String getEmpId() {
         return empId;
     }
 
-    public void setEmpId(int empId) {
+    public void setEmpId(String empId) {
         this.empId = empId;
     }
 
@@ -182,11 +206,11 @@ public class Tasks {
         this.targetDate = targetDate;
     }
 
-    public int getMaintId() {
+    public String getMaintId() {
         return maintId;
     }
 
-    public void setMaintId(int maintId) {
+    public void setMaintId(String maintId) {
         this.maintId = maintId;
     }
 

@@ -1,6 +1,7 @@
 package com.infosys.taskinfomanager.repository;
 
 import com.infosys.taskinfomanager.models.Tasks;
+import javafx.application.Application;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

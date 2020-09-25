@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" >
+<html xmlns:th="https://www.thymeleaf.org" lang="en" >
     <head>
         <meta charset="UTF-8">
         <title>Applications</title>
@@ -16,23 +16,28 @@
 
             <form action = "#" th:action = "@{/addApp}" th:object="${applications}" method = "post" >
 
-                <label>App Name: </label>
-                <input type="text" th:field="*{app_Name}" placeholder="Please input app name" required/><br>
-                <input type="hidden" th:field = "*{app_Name}">
+                <label >App Name: </label>
+                <input type="text" th:field="*{app_Name}" placeholder="Please input app name" />
+                <small><span th:if="${#fields.hasErrors('app_Name')}" class="alert alert-danger" th:errors="*{app_Name}"></span></small><br>
 
                 <label>Manager Name: </label>
-                <input type="text" th:field="*{manager_Name}" placeholder="Please input manager name" required/><br>
+                <input type="text" class="form" th:field="*{manager_Name}" placeholder="Please input manager name"/>
+                <small><span th:if="${#fields.hasErrors('manager_Name')}" class="alert alert-danger" th:errors="*{manager_Name}" ></span></small><br>
 
                 <label>Area: </label>
-                <input type="text" th:field="*{area}" placeholder="Please input area" required /><br>
+                <input type="text" th:field="*{area}" placeholder="Please input area"/>
+                <small><span th:if="${#fields.hasErrors('area')}" class="alert alert-danger" th:errors="*{area}" ></span></small><br>
 
                 <label>Maintenance ID:  </label>
-                <input type="number" onkeydown="return event.keyCode !== 69" th:field="*{maint_id}" required/><br>
+                <input type="text" th:field="*{maint_Id}" placeholder="Please input maintenance id" />
+                <small><span th:if="${#fields.hasErrors('maint_Id')}" class="alert alert-danger" th:errors="*{maint_Id}" ></span></small><br>
+
 
                 <label>Maintenance Time: </label>
-                <input type="datetime-local" th:field="*{maint_TS}"  required/><br>
+                <input type="datetime-local" th:field="*{maint_TS}" />
+                <small><span th:if="${#fields.hasErrors('maint_TS')}" class="alert alert-danger" th:errors="*{maint_TS}" ></span></small><br>
 
-                <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+                <br><p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 
             </form><br><br>
 
@@ -53,23 +58,28 @@
                         </tr>
                     </thead>
 
-                    <tbody th:each="applications : ${listApps}" >
+                    <tbody >
+                        <tr th:if="${listApps.isEmpty()}">
+                            <td colspan="7"> No apps to display. Please add an app. </td>
+                        </tr>
 
-                        <td th:text="${applications.app_Name}" ></td>
-                        <td th:text="${applications.manager_Name}"  ></td>
-                        <td th:text="${applications.area}"         ></td>
-                        <td th:text="${applications.maint_id}"     ></td>
-                        <td th:text="${applications.maint_TS}"      ></td>
-                        <td align = "center" valign="center">
-                            <a th:href = "@{/editApp/{app_Name} (app_Name = ${applications.app_Name})}" class="btn btn-primary">
-                                Edit
-                            </a>
-                        </td>
-                        <td align = "center" valign="center">
-                            <a th:href = "@{/deleteApp/{app_Name} (app_Name = ${applications.app_Name})}" onclick="alert('This will delete the entry.')" class="btn btn-primary">
-                                Delete
-                            </a>
-                        </td>
+                        <tr th:each="applications : ${listApps}" >
+                            <td th:text="${applications.app_Name}" ></td>
+                            <td th:text="${applications.manager_Name}"  ></td>
+                            <td th:text="${applications.area}"         ></td>
+                            <td th:text="${applications.maint_Id}"     ></td>
+                            <td th:text="${applications.maint_TS}"      ></td>
+                            <td align = "center" valign="center">
+                                <a th:href = "@{/editApp/{app_Name} (app_Name = ${applications.app_Name})}" class="btn btn-primary">
+                                    Edit
+                                </a>
+                            </td>
+                            <td align = "center" valign="center">
+                                <a th:href = "@{/deleteApp/{app_Name} (app_Name = ${applications.app_Name})}" onclick="alert('This will delete the entry.')" class="btn btn-primary">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
                     </tbody>
 
                 </table>
