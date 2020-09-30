@@ -1,11 +1,11 @@
 package com.infosys.taskinfomanager.models;
 
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.Optional;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Qualifier("applications")
 @Entity
@@ -14,17 +14,24 @@ public class Applications {
 
     @Id
     @Column(name = "APP_NAME")
+    @NotEmpty(message = "Required app name!")
     private String app_Name;
 
+    @NotEmpty(message = "Required manager name!")
     @Column(name = "MANAGER_NAME")
     private String manager_Name;
 
+    @NotEmpty(message = "Required area!")
     @Column(name = "AREA")
     private String area;
 
+    @NotEmpty(message = "Required maintenance id!")
+    @Pattern(regexp = "[\\s]*[0-9]*[0-9]+",message="Must contain numbers only!")
+    @Size(min=1, max =10)
     @Column(name = "MAINT_ID")
-    private int maint_id;
+    private String maint_Id;
 
+    @NotEmpty(message = "Required maintenance date/time!")
     @Column(name = "MAINT_TS")
     private String maint_TS;
 
@@ -53,12 +60,12 @@ public class Applications {
         this.area = area;
     }
 
-    public int getMaint_id() {
-        return maint_id;
+    public String getMaint_Id() {
+        return maint_Id;
     }
 
-    public void setMaint_id(int maint_id) {
-        this.maint_id = maint_id;
+    public void setMaint_Id(String maint_Id) {
+        this.maint_Id = maint_Id;
     }
 
     public String getMaint_TS() {
@@ -67,17 +74,6 @@ public class Applications {
 
     public void setMaint_TS(String maint_TS) {
         this.maint_TS = maint_TS;
-    }
-
-    @Override
-    public String toString() {
-        return "Applications{" +
-                "app_Name='" + app_Name + '\'' +
-                ", manager_Name='" + manager_Name + '\'' +
-                ", area='" + area + '\'' +
-                ", maint_id=" + maint_id +
-                ", maint_TS='" + maint_TS + '\'' +
-                '}';
     }
 
 }

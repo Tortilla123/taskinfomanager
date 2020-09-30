@@ -7,9 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -27,25 +28,37 @@ public class ApplicationController {
 
     @GetMapping("/addApp")
     public String addApplicationForm(Model model) {
+
         Applications applications = new Applications();
+
         model.addAttribute( "applications", applications );
+
         model.addAttribute("listApps", applicationsService.getAllApplications());
 
         return "addApplications";
     }
 
     @PostMapping("/addApp")
-    public String applicationSubmit(@Validated @ModelAttribute("applications") Applications applications, String app_Name){
+    public String applicationSubmit( @ModelAttribute("applications") @Valid Applications applications, BindingResult bindingResult, String app_Name, Model model){
+            if(bindingResult.hasErrors()){
 
-            applicationsService.createApplications(applications, app_Name);
+                model.addAttribute(bindingResult);
 
-            return "resultApplication" ;
+                model.addAttribute("listApps", applicationsService.getAllApplications());
+
+                return "addApplications";
+
+            }else{
+
+                applicationsService.createApplications(applications, app_Name);
+
+                return "resultApplication" ;
+
+            }
     }
 
     @GetMapping("/editApp/{app_Name}")
     public String editForm(@PathVariable("app_Name") String app_Name,  Model model) throws ResourceNotFound {
-        System.out.println("Inside edit app");
-
 
         if(applicationsService.findApplicationById(app_Name).getApp_Name().isEmpty()){
 
@@ -61,20 +74,37 @@ public class ApplicationController {
     }
 
     @PostMapping("/editApp/{app_Name}")
-    public String submitForm(@Validated @PathVariable("app_Name") String app_Name, Applications applications,  Model model) throws ResourceNotFound {
+    public String submitForm(@PathVariable("app_Name") String app_Name, @Valid @ModelAttribute  Applications applications, BindingResult bindingResult,  Model model) throws ResourceNotFound {
 
-        applicationsService.updateApplication(applications, app_Name);
-        model.addAttribute("applications", applicationsService.getAllApplications());
+        if(bindingResult.hasErrors()){
 
-        return "redirect:/addApp";
+            model.addAttribute(bindingResult);
+
+            return "editApplication";
+
+        }else{
+
+            applicationsService.updateApplication(applications, app_Name);
+
+            model.addAttribute("applications", applicationsService.getAllApplications());
+
+            return "redirect:/addApp";
+        }
     }
 
    @GetMapping("/deleteApp/{app_Name}")
-    public String deleteApplcations(@Validated @PathVariable("app_Name") String app_Name) throws ResourceNotFound {
+    public String deleteApplcations(@PathVariable("app_Name") String app_Name) throws ResourceNotFound {
 
-        applicationsService.deleteApplications(app_Name);
+        if(applicationsService.findApplicationById(app_Name).getApp_Name().isEmpty()){
 
-        return "redirect:/addApp";
+           return "error";
+
+       }else {
+
+           applicationsService.deleteApplications(app_Name);
+
+           return "redirect:/addApp";
+       }
    }
 
 

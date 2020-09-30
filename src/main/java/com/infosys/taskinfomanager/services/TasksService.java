@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import javax.transaction.Transactional;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,9 +20,9 @@ public class TasksService implements ITasksService {
     @Override
     public Tasks createTask(Tasks task, String incidentId) {
         String str_Incident_Id = incidentId.replaceAll(",$", "");
-        System.out.println(incidentId);
+
         if (tasksRepository.existsById(str_Incident_Id)){
-            throw new ResourceNotFound("Resource exits.");
+            throw new ResourceNotFound("Resource exists.");
         }else {
             return tasksRepository.save(task);
         }
@@ -32,12 +31,12 @@ public class TasksService implements ITasksService {
 
     @Override
     public List<Tasks> getAllTasks() {
-        return (List<Tasks>) tasksRepository.findAll();
+        return tasksRepository.findAll();
     }
 
     @Override
-    public Tasks findTaskById(String incident_Id) {
-        Optional<Tasks> tasksDB = tasksRepository.findById(incident_Id);
+    public Tasks findTaskById(String incidentId) {
+        Optional<Tasks> tasksDB = this.tasksRepository.findById(incidentId);
 
         if(tasksDB.isPresent()){
             return tasksDB.get();
@@ -47,8 +46,8 @@ public class TasksService implements ITasksService {
     }
 
     @Override
-    public Tasks updateTask(Tasks tasks, String incident_Id) {
-        Optional<Tasks> tasksDB = tasksRepository.findById(incident_Id);
+    public Tasks updateTask(Tasks tasks, String incidentId) {
+        Optional<Tasks> tasksDB = this.tasksRepository.findById(incidentId);
 
         if(tasksDB.isPresent()){
         Tasks updateTask = tasksDB.get();
@@ -73,27 +72,28 @@ public class TasksService implements ITasksService {
         return tasksRepository.save(updateTask);
 
         } else{
-            throw new ResourceNotFound("Resource not found with Incident ID: "+ incident_Id);
+            throw new ResourceNotFound("Resource not found with Incident ID: "+ incidentId);
         }
     }
 
     @Override
-    public void deleteTask(String incident_Id) {
-        Optional<Tasks> tasksDB = tasksRepository.findById(incident_Id);
+    public void deleteTask(String incidentId) {
+        Optional<Tasks> tasksDB = tasksRepository.findById(incidentId);
+
         if(tasksDB.isPresent()){
-            tasksRepository.deleteById(incident_Id);
+            tasksRepository.deleteById(incidentId);
         }else{
-            throw new ResourceNotFound("Task not found with Incident ID: "+ incident_Id);
+            throw new ResourceNotFound("Task not found with Incident ID: "+ incidentId);
         }
     }
 
     @Override
     public List<Tasks> fetchTasksByKeyword(String keyword, Integer keywordNum, String keywordFrom, String keywordTo) {
 
-        if(keyword != null && keyword != "" || keywordNum != null){
+        if(keyword != null && !keyword.equals("") || keywordNum != null){
             return tasksRepository.findTasksByKeyword(keyword, keywordNum);
         }else if (keywordFrom != null && keywordTo != null){
-            if (keywordFrom == "" || keywordTo == ""){
+            if (keywordFrom.equals("") || keywordTo.equals("")){
                 throw new ResourceNotFound("String index out of range.");
             }else{
                 return tasksRepository.findTasksByDateRange(keywordFrom, keywordTo);

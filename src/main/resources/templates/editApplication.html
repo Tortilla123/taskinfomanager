@@ -9,27 +9,31 @@
 
 </head>
 <body>
-<div><h2>Edit application</h2>
-    <form action = "#" th:action = "@{/editApp/{app_Name}(app_Name=${applications.app_Name})}" th:object="${applications}"  method = "post" >
-        <label>App Name: </label>
-        <input type="text" th:field="*{app_Name}"  readonly/><br>
-        <input type="hidden" th:field = "*{app_Name}">
+    <div><h2>Edit application</h2>
+        <form action = "#" th:action = "@{/editApp/{app_Name}(app_Name=${applications.app_Name})}" th:object="${applications}"  method = "post" >
+            <label >App Name: </label>
+            <input type="text" th:field="*{app_Name}" readonly />
 
-        <label>Manager Name: </label>
-        <input type="text" th:field="*{manager_Name}" placeholder="Please input manager name" required/><br>
+            <label>Manager Name: </label>
+            <input type="text" class="form" th:field="*{manager_Name}" placeholder="Please input manager name"/>
+            <small><span th:if="${#fields.hasErrors('manager_Name')}" class="alert alert-danger" th:errors="*{manager_Name}" ></span></small><br>
 
-        <label>Area: </label>
-        <input type="text" th:field="*{area}" placeholder="Please input area" required /><br>
+            <label>Area: </label>
+            <input type="text" th:field="*{area}" placeholder="Please input area"/>
+            <small><span th:if="${#fields.hasErrors('area')}" class="alert alert-danger" th:errors="*{area}" ></span></small><br>
 
-        <label>Maintenance ID:  </label>
-        <input type="number" min = "0" th:field="*{maint_id}" placeholder="Please input a maintenance number" required/><br>
+            <label>Maintenance ID:  </label>
+            <input type="text" th:field="*{maint_Id}" placeholder="Please input maintenance id" />
+            <small><span th:if="${#fields.hasErrors('maint_Id')}" class="alert alert-danger" th:errors="*{maint_Id}" ></span></small><br>
 
-        <label>Maintenance Time: </label>
-        <input type="datetime-local" th:field="*{maint_TS}"  required/><br>
 
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+            <label>Maintenance Time: </label>
+            <input type="datetime-local" th:field="*{maint_TS}" />
+            <small><span th:if="${#fields.hasErrors('maint_TS')}" class="alert alert-danger" th:errors="*{maint_TS}" ></span></small><br>
 
-    </form>
-</div>
+            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+
+        </form>
+    </div>
 </body>
 </html>
